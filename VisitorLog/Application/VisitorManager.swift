@@ -181,14 +181,12 @@ class VisitorManager {
 	}
 	
 	func csv(signIn:Date, signOut:Date?, access:Access, person:Person) -> [String] {
-		let formatter = ISO8601DateFormatter()
+		let formatter = DateFormatter.rfc3339
 		let signIn = formatter.string(from:signIn)
 		let signOut = signOut != nil ? formatter.string(from:signOut!) : ""
 		let access = access.rawValue
 		let name = person.name.csvEscape
-		
-		formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-		let birthdate = formatter.string(from:person.birthdate)
+		let birthdate = DateFormatter.birthdate.string(from:person.birthdate)
 		
 		return [signIn, signOut, access, name, birthdate]
 	}
